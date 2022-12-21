@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build and Push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v3
         with:
           image: sirajeddineaissa/cypress-docker
           addLatest: true
