@@ -1,0 +1,33 @@
+name: Build the Image and Push It to Docker Hub
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  build-and-push:
+    name: Build the Image and Push It to Docker Hub
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build and Push
+        uses: docker/build-push-action@v5
+        with:
+          image: sirajeddineaissa/cypress-docker
+          addLatest: true
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          # TODO: Seems like --platform support is currenctly missing. See https://github.com/mr-smithers-excellent/docker-build-push/issues/95.
+
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
