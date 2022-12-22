@@ -1,4 +1,4 @@
-APP_NAME = cypress-docker
+APP_NAME = cypress
 
 # Another way to use variables: https://pawamoy.github.io/posts/pass-makefile-args-as-typed-in-command-line/
 
@@ -15,12 +15,12 @@ help: ## This help.
 .PHONY: build
 build: ## Builds the docker image
 	@echo "Building image ..."
-	@docker buildx build --platform linux/amd64,linux/arm64 -t sirajeddineaissa/${APP_NAME}:latest --push .
+	@docker build -t ${APP_NAME} .
 
 .PHONY: tag
 tag: ## Tags the docker image
 	@echo "Tagging image ..."
-	@docker tag sirajeddineaissa/${APP_NAME}:latest sirajeddineaissa/${APP_NAME}:latest
+	@docker image tag ${APP_NAME} sirajeddineaissa/${APP_NAME}
 
 .PHONY: push
 push: ## Pushes the docker image
