@@ -1,9 +1,5 @@
 name: Build, Tag and Push to Docker Hub
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-
+on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
